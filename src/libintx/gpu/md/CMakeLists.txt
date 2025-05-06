@@ -67,6 +67,8 @@ add_library(
 set_target_properties(libintx.gpu.md.eri4 PROPERTIES OUTPUT_NAME intx.gpu.md.eri4)
 target_link_libraries(libintx.gpu.md.eri4 libintx.gpu)
 target_link_libraries(libintx.gpu.md.eri4 libintx.gpu.md.basis)
+target_compile_definitions(libintx.gpu.md.eri4 PUBLIC LIBINTX_GPU_API_CUDA)
+
 #target_link_libraries(libintx.gpu.md CUDA::cublas)
 
 install(TARGETS libintx.gpu.md.basis)

@@ -1,8 +1,10 @@
 #ifndef LIBINTX_GPU_API_RUNTIME_H
 #define LIBINTX_GPU_API_RUNTIME_H
 
-#include "libintx/gpu/api/forward.h"
+#include "libintx/gpu/forward.h"
 #include "libintx/gpu/api/api.h"
+#include "libintx/gpu/api/config.h"
+
 
 #include <memory>
 #include <cstdio>
@@ -11,6 +13,9 @@
 #include <cuda_runtime.h>
 #define LIBINTX_GPU_API_NAME "cuda"
 #define LIBINTX_GPU_API_SYMBOL(SYMBOL) cuda ## SYMBOL
+// using gpuStream_t = cudaStream_t;
+using gpuEvent_t = cudaEvent_t;
+// using gpuError_t = cudaError_t; 
 #endif
 
 #ifdef LIBINTX_GPU_API_HIP

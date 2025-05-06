@@ -1,4 +1,5 @@
 include_directories(${PROJECT_SOURCE_DIR}/include/eigen3)
+add_definitions(-DLIBINTX_GPU_API_CUDA)
 
 add_executable(interpolate.test EXCLUDE_FROM_ALL interpolate.test.cc)
 target_link_libraries(interpolate.test libboys)
@@ -46,8 +47,23 @@ if (TARGET libintx.gpu.md.eri4)
   add_executable(libintx.gpu.md4.test EXCLUDE_FROM_ALL libintx.gpu.md4.test.cc)
   target_link_libraries(libintx.gpu.md4.test libintx.gpu.md.eri4)
   target_link_libraries(libintx.gpu.md4.test ${libintx_test_reference})
+  add_test(NAME libintx.gpu.md4 COMMAND libintx.gpu.md4.test)
 endif()
 
 add_executable(libintx.md.test EXCLUDE_FROM_ALL libintx.md.test.cc)
 target_link_libraries(libintx.md.test libboys)
 add_test(NAME libintx.md COMMAND libintx.md.test)
+
+
+#---Custom H20 STO-3G Basis set---
+
+add_executable(custom_integral.test EXCLUDE_FROM_ALL
+    custom_integral_test.cpp
+    parse_basis_set_v2.cpp
+)
+
+target_link_libraries(custom_integral.test libintx.gpu libintx.gpu.md.eri4 libboys)
+target_compile_definitions(custom_integral.test PUBLIC LIBINTX_GPU_API_CUDA)
+add_test(NAME custom_integral COMMAND custom_integral.test)
+
+

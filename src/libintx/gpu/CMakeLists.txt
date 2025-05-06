@@ -16,7 +16,9 @@ if (LIBINTX_CUDA)
 
   #include_directories(${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES})
 
-  set(LIBINTX_GPU_API_CUDA ON)
+  set(LIBINTX_GPU_API_CUDA ON CACHE BOOL "Enable CUDA GPU API")
+
+  add_definitions(-DLIBINTX_GPU_API_CUDA)
   set(libintx_gpu_runtime CUDA::cudart)
 
 endif(LIBINTX_CUDA)
@@ -52,6 +54,8 @@ add_library(
 set_target_properties(libintx.gpu PROPERTIES OUTPUT_NAME intx.gpu)
 target_link_libraries(libintx.gpu PRIVATE libintx.boys)
 target_link_libraries(libintx.gpu PRIVATE ${libintx_gpu_runtime})
+target_compile_definitions(libintx.gpu PUBLIC LIBINTX_GPU_API_CUDA)
+
 
 math(EXPR lmax2 "2*${LIBINTX_MAX_L}")
 foreach (BRA RANGE ${lmax2})
@@ -78,6 +82,8 @@ add_library(
 set_target_properties(libintx.gpu.jengine PROPERTIES OUTPUT_NAME intx.gpu.jengine)
 target_link_libraries(libintx.gpu.jengine PRIVATE ${libintx_gpu_runtime})
 target_link_libraries(libintx.gpu.jengine PRIVATE libintx.gpu)
+target_compile_definitions(libintx.gpu.jengine PUBLIC LIBINTX_GPU_API_CUDA)
+
 
 install(TARGETS libintx.gpu)
 install(FILES forward.h DESTINATION libintx/gpu)

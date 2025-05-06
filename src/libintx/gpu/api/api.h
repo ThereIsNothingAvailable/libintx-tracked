@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <cassert>
 
-#include "libintx/gpu/api/forward.h"
+#include "libintx/gpu/forward.h"
 
 namespace libintx::gpu {
 
